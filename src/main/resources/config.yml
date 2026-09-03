@@ -1,0 +1,7 @@
+track-days: 30
+starting-streak-protections: 0
+calendar-title: '&6Daily Rewards'
+messages:
+  claimed: '&aDaily reward claimed! &7Streak: &f%streak%'
+  already-claimed: '&eYou have already claimed today.''s reward.'
+  protection-used: '&eA streak protection was used to preserve your streak.'
