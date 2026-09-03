@@ -1,0 +1,16 @@
+name: MiraDaily
+version: 0.1.0
+main: com.mira.daily.MiraDailyPlugin
+api-version: '1.21'
+author: FiveS
+softdepend: [PlaceholderAPI]
+commands:
+  daily:
+    description: Open daily rewards
+    usage: /daily
+  mdaily:
+    description: Manage MiraDaily
+    usage: /mdaily <protection|reset|reload>
+permissions:
+  miradaily.admin:
+    default: op
