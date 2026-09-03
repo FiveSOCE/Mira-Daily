@@ -26,6 +26,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 public final class MiraDailyPlugin extends JavaPlugin implements Listener {
+    private static final String PREFIX = "&5&lMira &8>> &r";
     private DailyService daily;
     private String guiTitle;
 
@@ -53,11 +54,11 @@ public final class MiraDailyPlugin extends JavaPlugin implements Listener {
             openCalendar(player);
             return true;
         }
-        if (!sender.hasPermission("miradaily.admin")) { sender.sendMessage(c("&cYou do not have permission.")); return true; }
+        if (!sender.hasPermission("miradaily.admin")) { msg(sender, "&cYou do not have permission."); return true; }
         if (args.length == 0) {
-            sender.sendMessage(c("&e/mdaily protection <player> <amount>"));
-            sender.sendMessage(c("&e/mdaily reset <player>"));
-            sender.sendMessage(c("&e/mdaily reload"));
+            msg(sender, "&e/mdaily protection <player> <amount>");
+            msg(sender, "&e/mdaily reset <player>");
+            msg(sender, "&e/mdaily reload");
             return true;
         }
         switch (args[0].toLowerCase(Locale.ROOT)) {
@@ -67,19 +68,19 @@ public final class MiraDailyPlugin extends JavaPlugin implements Listener {
                 int amount;
                 try { amount = Integer.parseInt(args[2]); } catch (NumberFormatException e) { return false; }
                 daily.addProtections(target.getUniqueId(), amount);
-                sender.sendMessage(c("&aUpdated streak protections for &f" + args[1] + "&a."));
+                msg(sender, "&aUpdated streak protections for &f" + args[1] + "&a.");
             }
             case "reset" -> {
                 if (args.length < 2) return false;
                 daily.reset(Bukkit.getOfflinePlayer(args[1]).getUniqueId());
-                sender.sendMessage(c("&aDaily state reset."));
+                msg(sender, "&aDaily state reset.");
             }
             case "reload" -> {
                 reloadConfig();
                 guiTitle = c(getConfig().getString("calendar-title", "&6Daily Rewards"));
-                sender.sendMessage(c("&aMiraDaily reloaded."));
+                msg(sender, "&aMiraDaily reloaded.");
             }
-            default -> sender.sendMessage(c("&cUnknown subcommand."));
+            default -> msg(sender, "&cUnknown subcommand.");
         }
         return true;
     }
@@ -122,8 +123,8 @@ public final class MiraDailyPlugin extends JavaPlugin implements Listener {
         int day = slot + 1;
         if (!daily.canClaim(player.getUniqueId()) || day != daily.nextRewardDay(player.getUniqueId())) return;
         ClaimResult result = daily.claim(player);
-        player.sendMessage(c(getConfig().getString("messages.claimed", "&aDaily reward claimed! &7Streak: &f%streak%").replace("%streak%", Integer.toString(result.streak()))));
-        if (result.protectionUsed()) player.sendMessage(c(getConfig().getString("messages.protection-used", "&eA streak protection was used.")));
+        msg(player, getConfig().getString("messages.claimed", "&aDaily reward claimed! &7Streak: &f%streak%").replace("%streak%", Integer.toString(result.streak())));
+        if (result.protectionUsed()) msg(player, getConfig().getString("messages.protection-used", "&eA streak protection was used."));
         player.closeInventory();
     }
 
@@ -139,6 +140,7 @@ public final class MiraDailyPlugin extends JavaPlugin implements Listener {
         return List.of("give %player% experience_bottle " + Math.min(32, 4 + day));
     }
 
+    private void msg(CommandSender sender, String raw) { sender.sendMessage(c(getConfig().getString("messages.prefix", PREFIX) + raw)); }
     static String c(String s) { return ChatColor.translateAlternateColorCodes('&', s); }
     static long today() { return LocalDate.now().toEpochDay(); }
 
