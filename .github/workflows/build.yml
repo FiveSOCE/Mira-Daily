@@ -25,19 +25,19 @@ jobs:
         run: gradle clean build --stacktrace
       - uses: actions/upload-artifact@v4
         with:
-          name: MiraDaily-0.1.1
-          path: build/libs/MiraDaily-0.1.1.jar
+          name: MiraDaily-0.1.2
+          path: build/libs/MiraDaily-0.1.2.jar
           if-no-files-found: error
 
-      - name: Publish v0.1.1 release if missing
+      - name: Publish v0.1.2 release if missing
         if: github.event_name != 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if ! gh release view v0.1.1 >/dev/null 2>&1; then
-            gh release create v0.1.1 \
-              build/libs/MiraDaily-0.1.1.jar \
+          if ! gh release view v0.1.2 >/dev/null 2>&1; then
+            gh release create v0.1.2 \
+              build/libs/MiraDaily-0.1.2.jar \
               --target "${{ github.sha }}" \
-              --title "MiraDaily v0.1.1" \
-              --notes "Adds MiraCore audit/streak milestones, timezone-safe daily resets, working direct claim/streak commands, typed claim events, expanded API/PAPI data and tab completion."
+              --title "MiraDaily v0.1.2" \
+              --notes "Final merged Daily expansion: timezone-safe claims, working claim/streak commands, best-streak and total-claim statistics, bounded claim history, earned streak protection, MiraCore milestones/audit, rich claim events, reward previews and MiraLeaderboards publishing."
           fi
