@@ -319,6 +319,7 @@ public final class MiraDailyPlugin extends JavaPlugin implements Listener {
     }
 
     private void awardMilestones(Player player, ClaimResult result) {
+        if (!getConfig().getBoolean("milestones.enabled", true)) return;
         for (Integer streak : getConfig().getIntegerList("milestones.streaks")) {
             if (streak == null || streak <= 0 || result.streak() < streak) continue;
             core.milestones().award(player.getUniqueId(), "miradaily.streak_" + streak,
