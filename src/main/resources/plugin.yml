@@ -9,10 +9,10 @@ softdepend: [PlaceholderAPI, MiraLeaderboards]
 commands:
   daily:
     description: Open or use daily rewards.
-    usage: /daily [claim|streak]
+    usage: /daily [claim|streak] [claim|streak]
   mdaily:
     description: Manage MiraDaily.
-    usage: /mdaily <protection|reset|reload>
+    usage: /mdaily <protection|reset|reload|status>
 permissions:
   miradaily.use:
     default: true
