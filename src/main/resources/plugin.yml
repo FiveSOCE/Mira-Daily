@@ -3,14 +3,18 @@ version: ${version}
 main: com.mira.daily.MiraDailyPlugin
 api-version: '1.21'
 author: FiveS
-softdepend: [PlaceholderAPI]
+description: Daily reward calendar, streaks and milestone integration for the Mira ecosystem.
+depend: [MiraCore]
+softdepend: [PlaceholderAPI, MiraLeaderboards]
 commands:
   daily:
-    description: Open daily rewards
-    usage: /daily
+    description: Open or use daily rewards.
+    usage: /daily [claim|streak]
   mdaily:
-    description: Manage MiraDaily
+    description: Manage MiraDaily.
     usage: /mdaily <protection|reset|reload>
 permissions:
+  miradaily.use:
+    default: true
   miradaily.admin:
     default: op
