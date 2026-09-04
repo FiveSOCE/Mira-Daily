@@ -4,7 +4,7 @@ MiraDaily is the daily reward calendar and streak system for the Mira Paper serv
 
 ## Download
 
-[**Download MiraDaily v0.1.1**](https://github.com/FiveSOCE/Mira-Daily/releases/download/v0.1.1/MiraDaily-0.1.1.jar)
+[**Download MiraDaily v0.1.2**](https://github.com/FiveSOCE/Mira-Daily/releases/download/v0.1.2/MiraDaily-0.1.2.jar)
 
 [View All Releases](https://github.com/FiveSOCE/Mira-Daily/releases)
 
@@ -14,15 +14,15 @@ MiraDaily is the daily reward calendar and streak system for the Mira Paper serv
 - Java 21
 - MiraCore 0.2.0 or newer
 - PlaceholderAPI optional
-- MiraLeaderboards optional/future consumer of the public API
+- MiraLeaderboards optional for streak/claim ranking mirrors
 
 ## How MiraDaily Works
 
 Players open a configurable reward calendar and claim the reward available for the current day. Claims and streak state persist across restarts. Rewards are command-driven, allowing the calendar to grant money, items, crate keys, tags or anything else exposed through server commands.
 
-v0.1.1 makes daily reset behavior timezone-safe with an explicit configurable timezone instead of relying on the host machine timezone. The default is `Australia/Brisbane`. Streak milestones can be configured and are awarded through MiraCore using stable keys such as `miradaily.streak_7`, `miradaily.streak_14` and `miradaily.streak_30`. Claims and administrative state changes are written to the MiraCore audit trail.
+v0.1.2 makes daily reset behavior timezone-safe with an explicit configurable timezone instead of relying on the host machine timezone. The default is `Australia/Brisbane`. Streak milestones can be configured and are awarded through MiraCore using stable keys such as `miradaily.streak_7`, `miradaily.streak_14` and `miradaily.streak_30`. Claims and administrative state changes are written to the MiraCore audit trail.
 
-The player command surface now matches the documented behavior: `/daily` opens the GUI, `/daily claim` claims directly, and `/daily streak` reports the current streak/protection count. A typed `DailyRewardClaimEvent` is emitted after successful claims so other Mira plugins can integrate without parsing commands or files.
+The player command surface now matches the documented behavior: `/daily` opens the GUI, `/daily claim` claims directly, and `/daily streak` reports the current streak, best streak, total claims and protection count. Claim history is bounded, configurable streak intervals can award protection charges, reward icons/lore can be previewed in the calendar, and a typed `DailyRewardClaimEvent` exposes reward day, current/best streak, total claims and protection use/earn state.
 
 ## Commands
 
@@ -51,6 +51,9 @@ Important settings:
 - `timezone` - timezone used to determine a new daily claim day.
 - `milestones.enabled` - enables MiraCore streak milestones.
 - `milestones.streaks` - streak thresholds to award.
+- `streak-protection.award-every` - consecutive-claim interval that awards one protection.
+- `claim-history-limit` - maximum persisted per-player claim-history records.
+- `leaderboards.*` - board IDs used for current streak, best streak and total claims.
 - `rewards.<day>.commands` - command chain for a calendar day.
 
 Absolute player claim state is stored in `plugins/MiraDaily/daily.yml` and survives restart.
@@ -60,6 +63,8 @@ Absolute player claim state is stored in `plugins/MiraDaily/daily.yml` and survi
 Player-context placeholders:
 
 - `%miradaily_streak%`
+- `%miradaily_best_streak%`
+- `%miradaily_total_claims%`
 - `%miradaily_protections%`
 - `%miradaily_track_day%`
 - `%miradaily_next_day%`
@@ -67,12 +72,12 @@ Player-context placeholders:
 
 Global/reset placeholders:
 
-- `%miradaily_reset_seconds%`
-- `%miradaily_timezone%`
+- `%miradaily_next_reset_seconds%`
+- `%miradaily_last_claim_epoch_day%`
 
 ## Integration
 
-MiraDaily registers its `MiraDailyApi` through both Bukkit ServicesManager and MiraCore. Integrations can query claim availability, streak, protections, calendar position, next reward day, reset countdown and configured timezone. Successful claims also emit `DailyRewardClaimEvent`.
+MiraDaily registers its `MiraDailyApi` through both Bukkit ServicesManager and MiraCore. Integrations can query claim availability, current/best streak, total claims, protections, calendar position, next reward day, last claim, reset time and timezone. When MiraLeaderboards is installed, MiraDaily publishes stable UUID-backed `daily_streak`, `daily_best_streak` and `daily_total_claims` boards.
 
 ## Building
 
