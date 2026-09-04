@@ -1,8 +1,15 @@
 track-days: 30
 starting-streak-protections: 0
 calendar-title: '&6Daily Rewards'
+timezone: 'Australia/Brisbane'
+
+milestones:
+  enabled: true
+  streaks: [7, 14, 30]
+
 messages:
   prefix: '&5&lMira &8>> &r'
   claimed: '&aDaily reward claimed! &7Streak: &f%streak%'
   already-claimed: '&eYou have already claimed today''s reward.'
   protection-used: '&eA streak protection was used to preserve your streak.'
+  streak: '&7Current daily streak: &f%streak% &8| &7Protections: &f%protections%'
