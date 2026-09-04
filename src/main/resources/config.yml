@@ -1,15 +1,28 @@
 track-days: 30
 starting-streak-protections: 0
 calendar-title: '&6Daily Rewards'
-timezone: 'Australia/Brisbane'
+
+# IANA timezone controlling the daily claim boundary.
+timezone: "UTC"
+
+claim-history-limit: 90
+
+streak-protection:
+  # Award one protection every N consecutive claims. Set 0 to disable.
+  award-every: 7
 
 milestones:
+  streaks: [7, 14, 30, 60, 100]
+
+leaderboards:
   enabled: true
-  streaks: [7, 14, 30]
+  streak-board: "daily_streak"
+  best-streak-board: "daily_best_streak"
+  total-claims-board: "daily_total_claims"
 
 messages:
   prefix: '&5&lMira &8>> &r'
   claimed: '&aDaily reward claimed! &7Streak: &f%streak%'
   already-claimed: '&eYou have already claimed today''s reward.'
   protection-used: '&eA streak protection was used to preserve your streak.'
-  streak: '&7Current daily streak: &f%streak% &8| &7Protections: &f%protections%'
+  protection-earned: '&aYour streak earned you &f1 &astreak protection.'
