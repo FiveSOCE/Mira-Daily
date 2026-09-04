@@ -1,8 +1,14 @@
 name: Build
+
 on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,9 +19,25 @@ jobs:
           distribution: temurin
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.10'
       - name: Build
-        run: gradle clean build
+        run: gradle clean build --stacktrace
       - uses: actions/upload-artifact@v4
         with:
-          name: MiraDaily-0.1.0
-          path: build/libs/MiraDaily-0.1.0.jar
+          name: MiraDaily-0.1.1
+          path: build/libs/MiraDaily-0.1.1.jar
+          if-no-files-found: error
+
+      - name: Publish v0.1.1 release if missing
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view v0.1.1 >/dev/null 2>&1; then
+            gh release create v0.1.1 \
+              build/libs/MiraDaily-0.1.1.jar \
+              --target "${{ github.sha }}" \
+              --title "MiraDaily v0.1.1" \
+              --notes "Adds MiraCore audit/streak milestones, timezone-safe daily resets, working direct claim/streak commands, typed claim events, expanded API/PAPI data and tab completion."
+          fi
