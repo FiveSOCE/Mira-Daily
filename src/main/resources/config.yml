@@ -3,7 +3,7 @@ starting-streak-protections: 0
 calendar-title: '&6Daily Rewards'
 
 # IANA timezone controlling the daily claim boundary.
-timezone: "UTC"
+timezone: "Australia/Brisbane"
 
 claim-history-limit: 90
 
@@ -12,6 +12,7 @@ streak-protection:
   award-every: 7
 
 milestones:
+  enabled: true
   streaks: [7, 14, 30, 60, 100]
 
 leaderboards:
