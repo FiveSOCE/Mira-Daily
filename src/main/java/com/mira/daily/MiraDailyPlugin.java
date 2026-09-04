@@ -3,6 +3,7 @@ package com.mira.daily;
 import com.mira.core.api.MiraCore;
 import com.mira.core.api.MiraCoreProvider;
 import com.mira.core.api.ModuleHealth;
+import com.mira.daily.api.event.DailyRewardClaimEvent;
 import com.mira.leaderboards.MiraLeaderboardsPlugin.BoardScope;
 import com.mira.leaderboards.MiraLeaderboardsPlugin.MiraLeaderboardsApi;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
@@ -305,6 +306,8 @@ public final class MiraDailyPlugin extends JavaPlugin implements Listener {
 
         awardMilestones(player, result);
         publish(id);
+        Bukkit.getPluginManager().callEvent(new DailyRewardClaimEvent(player, result.rewardDay(), result.streak(),
+                daily.bestStreak(id), daily.totalClaims(id), result.protectionUsed(), result.protectionEarned()));
         core.audit().record("MiraDaily", "DAILY_REWARD_CLAIMED", id, player.getName(),
                 Integer.toString(result.rewardDay()), "Claimed daily reward",
                 Map.of("streak", Integer.toString(result.streak()),
