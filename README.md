@@ -4,7 +4,7 @@ MiraDaily is the daily reward calendar and streak system for the Mira Paper serv
 
 ## Download
 
-[**Download MiraDaily v0.1.2**](https://github.com/FiveSOCE/Mira-Daily/releases/download/v0.1.2/MiraDaily-0.1.2.jar)
+[**Download MiraDaily v0.1.2**](https://github.com/FiveSOCE/Mira-Daily/releases/download/v0.1.3/MiraDaily-0.1.3.jar)
 
 [View All Releases](https://github.com/FiveSOCE/Mira-Daily/releases)
 
