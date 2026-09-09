@@ -1,12 +1,14 @@
 # MiraDaily
 
-MiraDaily is the daily reward calendar and streak system for the Mira Paper server suite. It provides configurable day-by-day rewards, persistent claim history, streak tracking, streak protection and MiraCore milestone/audit integration.
-
 ## Download
 
-[**Download MiraDaily v0.1.2**](https://github.com/FiveSOCE/Mira-Daily/releases/download/v0.1.3/MiraDaily-0.1.3.jar)
+**Latest compatibility release: v0.1.3**
 
-[View All Releases](https://github.com/FiveSOCE/Mira-Daily/releases)
+[**Download MiraDaily-0.1.3.jar**](https://github.com/FiveSOCE/Mira-Daily/releases/download/v0.1.3/MiraDaily-0.1.3.jar)
+
+[View all releases](https://github.com/FiveSOCE/Mira-Daily/releases)
+
+MiraDaily is the daily reward calendar and streak system for the Mira Paper server suite. It provides configurable day-by-day rewards, persistent claim history, streak tracking, streak protection and MiraCore milestone/audit integration.
 
 ## Requirements / Dependencies
 
